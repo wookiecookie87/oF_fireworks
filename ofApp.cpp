@@ -3,17 +3,27 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
-    particle = new Particle(ofGetWidth()/2, ofGetHeight()/2);
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    particle->update();
+	
+	
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    particle->show();
+	if (ofRandom(1) < 0.1) {
+		fireworks.push_back(new Firework());
+	}
+
+	for (int i = 0; i < fireworks.size(); i++) {
+		fireworks[i]->update();
+		fireworks[i]->show();
+	}
+
 }
 
 //--------------------------------------------------------------
