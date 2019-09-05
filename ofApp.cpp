@@ -2,28 +2,34 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofBackground(0);
+	//ofSetBackgroundAuto(false);
+	ofBackground(0);
 	
+	//ofSetFrameRate(60);
 }
+
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
 	
 	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	//ofEnableAlphaBlending();
 	if (ofRandom(1) < 0.1) {
 		fireworks.push_back(new Firework());
 	}
 
-	for (int i = 0; i < fireworks.size(); i++) {
+	for (int i = fireworks.size()-1; i >= 0 ; i--) {
 		fireworks[i]->update();
 		fireworks[i]->show();
+		if (fireworks[i]->done()) {
+			fireworks.erase(fireworks.begin() + i);
+		}
 	}
-
+	//ofDisableAlphaBlending();
 }
 
 //--------------------------------------------------------------

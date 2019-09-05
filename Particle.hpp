@@ -12,12 +12,16 @@ private:
     ofVec2f loc;
     ofVec2f vel;
     ofVec2f acc;
+	bool firework_flag;
+	int lifespan;
     
 public:
 	Particle(int x, int y, bool firework = false) {
 		loc.set(x, y);
+		firework_flag = firework;
+		lifespan = 255;
 		if (firework)
-			vel.set(0, ofRandom(-10, -16));
+			vel.set(ofRandom(-1, 1), ofRandom(-10, -16));
 		else {
 			vel.set(ofRandom(-1, 1), ofRandom(-1, 1));
 			vel *= ofRandom(1, 6);
@@ -38,16 +42,35 @@ public:
 		acc += force;
 
 	}
+
+	bool done() {
+		if (lifespan <= 0)
+			return true;
+		else
+			return false;
+	}	
     
     void update(){
+		if (!firework_flag) {
+			vel *= 0.95;
+			lifespan -= 4;
+		}
+
         vel += acc;
         loc += vel;
 		acc *= 0;
     }
     
     void show(){
-        ofSetColor(255);
-        ofDrawCircle(loc, 5);
-    }
+        
+
+		if (firework_flag) {
+			ofSetColor(255);
+			ofDrawCircle(loc, 5);
+		}else {
+			ofSetColor(255, lifespan);
+			ofDrawCircle(loc, 2);
+		}
+	}
     
 };
