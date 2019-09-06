@@ -7,10 +7,12 @@ private:
 	vector<Particle*> particles;
 	ofVec2f gravity;
 	bool exploded = false;
+	int hue;
 
 public:
 	Firework() {
-		firework = new Particle(ofRandom(0, ofGetWidth()), ofGetHeight(), true);
+		hue = ofRandom(0, 255);
+		firework = new Particle(ofRandom(0, ofGetWidth()), ofGetHeight(), hue, true);
 		gravity.set(0, 0.2);
 
 	}
@@ -26,7 +28,7 @@ public:
 			}
 		}
 		for (int i = particles.size()-1; i >= 0 ; i--) {
-			particles[i]->addForce(gravity);;
+			//particles[i]->addForce(gravity);;
 			particles[i]->update();
 			if (particles[i]->done()) {
 				particles.erase(particles.begin() + i);
@@ -37,7 +39,7 @@ public:
 
 	void explode() {
 		for (int i = 0; i < 100; i++) {
-			particles.push_back(new Particle(firework->getLocation().x, firework->getLocation().y));
+			particles.push_back(new Particle(firework->getLocation().x, firework->getLocation().y, hue));
 		}
 	}
 

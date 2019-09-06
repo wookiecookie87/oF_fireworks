@@ -14,20 +14,23 @@ private:
     ofVec2f acc;
 	bool firework_flag;
 	int lifespan;
-    
+	ofColor color;
+
 public:
-	Particle(int x, int y, bool firework = false) {
+	Particle(int x, int y, int hue,  bool firework = false) {
 		loc.set(x, y);
 		firework_flag = firework;
 		lifespan = 255;
 		if (firework)
-			vel.set(ofRandom(-1, 1), ofRandom(-10, -16));
+			vel.set(ofRandom(-1, 1), ofRandom(-18, -24));
 		else {
-			vel.set(ofRandom(-1, 1), ofRandom(-1, 1));
-			vel *= ofRandom(1, 6);
+			vel.set(ofRandom(-2, 2), ofRandom(-2, 2));
+			vel *= ofRandom(6, 10);
 		}
 
+		hue = hue;
         acc.set(0, 0);
+		color.setHsb(hue, 255, 255);
     }
     
 	ofVec2f getVelocity() {
@@ -62,13 +65,13 @@ public:
     }
     
     void show(){
-        
+   
 
 		if (firework_flag) {
-			ofSetColor(255);
-			ofDrawCircle(loc, 5);
+			ofSetColor(color);
+			ofDrawCircle(loc, 4);
 		}else {
-			ofSetColor(255, lifespan);
+			ofSetColor(color, lifespan);
 			ofDrawCircle(loc, 2);
 		}
 	}

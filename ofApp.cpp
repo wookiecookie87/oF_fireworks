@@ -4,21 +4,26 @@
 void ofApp::setup(){
 	//ofSetBackgroundAuto(false);
 	ofBackground(0);
-	
-	//ofSetFrameRate(60);
+	ofSetBackgroundAuto(false);
+	ofSetFrameRate(60);
 }
 
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
-	
+	ofSetColor(0, 0, 0, 20);
+	ofDrawRectangle(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	//ofEnableAlphaBlending();
-	if (ofRandom(1) < 0.1) {
+
+	//ofBackground(0, 300);
+	; //changed the last value from 18 to 5 makes it look more streaky
+	
+
+	if (ofRandom(1) < 0.01) {
 		fireworks.push_back(new Firework());
 	}
 
@@ -26,10 +31,13 @@ void ofApp::draw(){
 		fireworks[i]->update();
 		fireworks[i]->show();
 		if (fireworks[i]->done()) {
+			cout << "fireworks deleted" << endl;
 			fireworks.erase(fireworks.begin() + i);
+			cout << fireworks.size() << endl;
 		}
 	}
 	//ofDisableAlphaBlending();
+	
 }
 
 //--------------------------------------------------------------
